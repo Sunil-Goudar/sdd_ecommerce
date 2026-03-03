@@ -35,20 +35,8 @@ clean-targets:         # directories to be removed by `dbt clean`
 # continue to be built as views. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 
-groups:
-  - name: core
-    owner: {name: Data Engineering}
-  - name: finance
-    owner: {name: Finance Team}
-  - name: hr
-    owner: {name: HR Team}
-  - name: marketing
-    owner: {name: Marketing Team}
-  - name: supply_chain
-    owner: {name: Supply Chain Team}
-
 models:
-  enterprise_data_mesh:
+  enterprise_data_mesh:  # <-- This matches the 'name' at the top!
     
     # 1. STAGING (Shared Compute)
     staging:
