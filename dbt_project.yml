@@ -2,13 +2,6 @@ name: 'enterprise_data_mesh'
 version: '1.0.0'
 config-version: 2
 
-# Update your flags block to look like this:
-flags:
-  require_explicit_package_overrides_for_builtin_materializations: false
-  warn_error_options:
-    silence:
-      - PackageMaterializationOverrideDeprecation
-
 profile: 'default'
 model-paths: ["models"]
 target-path: "target"
@@ -17,9 +10,10 @@ clean-targets: ["target", "dbt_packages"]
 models:
   enterprise_data_mesh:
     
-    # 1. STAGING (Shared Compute)
+    # 1. STAGING (Shared Compute & Storage Optimization)
     staging:
-      +materialized: view
+      +materialized: table
+      +transient: true
       +schema: STAGING
       +snowflake_warehouse: ADMIN_WH
 
@@ -56,8 +50,3 @@ models:
         +snowflake_warehouse: SUPPLY_CHAIN_WH
         +tags: ["sc_run"]
 
-  # 3. ELEMENTARY LOGGING 
-  elementary:
-    +database: ECOMMERCE
-    +schema: DBT_INFO
-    +snowflake_warehouse: ADMIN_WH
