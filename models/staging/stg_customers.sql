@@ -1,0 +1,5 @@
+SELECT 
+    ID AS CUSTOMER_ID, 
+    UPPER(FIRST_NAME) AS FIRST_NAME, 
+    UPPER(LAST_NAME) AS LAST_NAME
+FROM {{ source('raw_ecommerce', 'RAW_CUSTOMERS') }}

@@ -35,8 +35,63 @@ clean-targets:         # directories to be removed by `dbt clean`
 # continue to be built as views. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 
+# groups:
+#   - name: core
+#     owner: {name: Data Engineering}
+#   - name: finance
+#     owner: {name: Finance Team}
+#   - name: hr
+#     owner: {name: HR Team}
+#   - name: marketing
+#     owner: {name: Marketing Team}
+#   - name: supply_chain
+#     owner: {name: Supply Chain Team}
+
 models:
-  my_new_project:
-    # Applies to all files under models/example/
-    example:
+  enterprise_data_mesh:
+    
+    # 1. STAGING (Shared Compute)
+    staging:
+      +materialized: view
+      +schema: STAGING
+      +snowflake_warehouse: ADMIN_WH
+
+    # 2. MARTS (Departmental Data Mesh & FinOps Compute)
+    marts:
       +materialized: table
+      
+      core:
+        +schema: CORE_ANALYTICS
+        +group: core
+        +snowflake_warehouse: ADMIN_WH
+        
+      finance:
+        +schema: FINANCE_ANALYTICS
+        +group: finance
+        +snowflake_warehouse: FINANCE_WH
+        +tags: ["finance_run"]
+        
+      hr:
+        +schema: HR_ANALYTICS
+        +group: hr
+        +snowflake_warehouse: HR_WH
+        +tags: ["hr_run"]
+
+      marketing:
+        +schema: MARKETING_ANALYTICS
+        +group: marketing
+        +snowflake_warehouse: MARKETING_WH
+        +tags: ["marketing_run"]
+
+      supply_chain:
+        +schema: SUPPLY_CHAIN_ANALYTICS
+        +group: supply_chain
+        +snowflake_warehouse: SUPPLY_CHAIN_WH
+        +tags: ["sc_run"]
+
+  # 3. ELEMENTARY LOGGING 
+  elementary:
+    +database: ECOMMERCE
+    +schema: DBT_INFO
+    +snowflake_warehouse: ADMIN_WH
+
