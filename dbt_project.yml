@@ -6,6 +6,10 @@ name: 'enterprise_data_mesh'
 version: '1.0.0'
 config-version: 2
 
+# Add this block right here:
+flags:
+  require_explicit_package_overrides_for_builtin_materializations: false
+
 # This setting configures which "profile" dbt uses for this project.
 profile: 'default'
 
