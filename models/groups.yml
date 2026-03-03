@@ -1,0 +1,11 @@
+groups:
+  - name: core
+    owner: {name: Data Engineering}
+  - name: finance
+    owner: {name: Finance Team}
+  - name: hr
+    owner: {name: HR Team}
+  - name: marketing
+    owner: {name: Marketing Team}
+  - name: supply_chain
+    owner: {name: Supply Chain Team}
